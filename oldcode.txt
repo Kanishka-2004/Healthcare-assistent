@@ -1,0 +1,176 @@
+"""import streamlit as st
+import nltk
+from transformers import pipeline,BioGptTokenizer, BioGptForCausalLM,set_seed
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize 
+
+
+chatbot = pipeline("text-generation", model="distilgpt2", framework="tf")
+def healthcare_chatbot(user_input):
+    if "symptom" in user_input:
+        return "Please consult a doctor for an accurate diagnosis."
+    elif "appointment" in user_input:
+        return "Would you like to schedule an appointment with a doctor?"
+    elif "medication" in user_input:
+        return "It's important to take prescribed medicines regularly. Consult your doctor if you have concerns."
+    else:
+        response = chatbot(user_input, max_length=200, num_return_sequences=1)
+        return response[0]['generated_text']
+
+def main():
+    st.set_page_config(page_title="Healthcare Assistant", layout="wide")
+    
+    # Sidebar
+    with st.sidebar:
+        st.title("🤖 Healthcare Chatbot")
+        st.write("An AI-powered assistant for health-related inquiries.")
+        st.markdown("---")
+        st.write("💡 **Disclaimer:** This chatbot does not provide medical advice. Always consult a professional.")
+    
+    st.title("Healthcare Assistant Chatbot 💬")
+    
+    # User input field
+    user_input = st.text_area("How can I assist you today?", height=100)
+
+    if st.button("Submit"):
+        if user_input:
+            with st.spinner("Processing your query..."):
+                response = healthcare_chatbot(user_input)
+            st.markdown(f"**🧑‍⚕️ You:** {user_input}")
+            st.markdown(f"**🤖 Chatbot:** {response}")
+        else:
+            st.warning("Please enter a message to get a response.")
+
+if __name__ == "__main__":
+    main()"""
+
+
+
+
+
+
+
+
+
+
+
+"""chatbot = pipeline("text-generation", model="distilgpt2")
+
+def healthcare_chatbot(user_input):
+    if "symptom" in user_input:
+        return "Please consult Doctor for accurate advice"
+    elif "appointment" in user_input:
+        return "Would you like to schedule appointment with the doctor."
+    elif "medication" in user_input:
+        return "It is important to take prescribed medicines regularly. If you have any concerns please consult your doctor."
+    else:
+        response = chatbot(user_input, max_length = 500, num_return_sequences=1)
+    return response[0]['generated_text']
+
+def main():
+    st.title("Healthcare Assistent Chatbot")
+    user_input = st.text_input("How can I assist you today? ")
+    if st.button("Submit"):
+        if user_input:
+            st.write("User: ", user_input)
+            with st.spinner("Processing your query, please wait..."):
+             response = healthcare_chatbot(user_input)
+            st.write("Healthcare Assistent : ", response)
+        else:
+            st.write("Please enter a message to get a response.")    
+            
+    
+if __name__ == "__main__":
+    main()"""
+
+
+    import streamlit as st
+import requests  # For Gemini API requests
+from transformers import pipeline
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+# Initialize the Hugging Face pipeline for text generation using GPT-2
+chatbot = pipeline("text-generation", model="distilgpt2", framework="tf")
+
+# Google Cloud's Vertex AI API (if available)
+def healthcare_chatbot(user_input):
+    """Function to handle user input and integrate with either Gemini API or fallback to GPT-2"""
+    try:
+        # If user input contains specific words, return predefined responses
+        if "symptom" in user_input:
+            return "Please consult a doctor for an accurate diagnosis."
+        elif "appointment" in user_input:
+            return "Would you like to schedule an appointment with the doctor?"
+        elif "medication" in user_input:
+            return "It's important to take prescribed medicines regularly. Consult your doctor if you have concerns."
+        
+        else:
+            # Default to GPT-2 model text generation (fallback)
+            response = chatbot(user_input, max_length=200, num_return_sequences=1)
+            return response[0]['generated_text']
+    
+    except Exception as e:
+        # If the Gemini API fails, fall back to GPT-2
+        return f"Error: {str(e)}. Falling back to GPT-2 response."
+        
+# Streamlit user interface
+def main():
+    st.set_page_config(page_title="Healthcare Assistant", layout="wide")
+
+    # Sidebar content
+    with st.sidebar:
+        st.title("🤖 Healthcare Chatbot")
+        st.write("An AI-powered assistant for health-related inquiries.")
+        st.markdown("---")
+        st.write("💡 **Disclaimer:** This chatbot does not provide medical advice. Always consult a professional.")
+
+    st.title("Healthcare Assistant Chatbot 💬")
+
+    # User input field
+    user_input = st.text_area("How can I assist you today?", height=100)
+
+    if st.button("Submit"):
+        if user_input:
+            with st.spinner("Processing your query..."):
+                response = healthcare_chatbot(user_input)
+            st.markdown(f"**🧑‍⚕️ You:** {user_input}")
+            st.markdown(f"**🤖 Chatbot:** {response}")
+        else:
+            st.warning("Please enter a message to get a response.")
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    main()
+
+
+# Streamlit user interface
+"""def main():
+    st.set_page_config(page_title="Healthcare Assistant", layout="wide")
+
+    # Sidebar content
+    with st.sidebar:
+        st.title("🤖 Healthcare Chatbot")
+        st.write("An AI-powered assistant for health-related inquiries.")
+        st.markdown("---")
+        st.write("💡 **Disclaimer:** This chatbot does not provide medical advice. Always consult a professional.")
+
+    st.title("Healthcare Assistant Chatbot 💬")
+
+    # User input field
+    user_input = st.text_area("How can I assist you today?", height=100)
+
+    if st.button("Submit"):
+        if user_input:
+            with st.spinner("Processing your query..."):
+                response, source = healthcare_chatbot(user_input)
+            st.markdown(f"**🧑‍⚕️ You:** {user_input}")
+            st.markdown(f"**🤖 Chatbot:** {response}")
+            st.markdown(f"**Source:** {source}")
+        else:
+            st.warning("Please enter a message to get a response.")
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    main()"""
